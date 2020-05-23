@@ -1,3 +1,20 @@
+/*standard on every file*/
+
+@media (max-width: 360px) {
+    html{
+        font-size: 1.4vw;
+    }
+    
+}
+
+@media (min-width: 361px) {
+    html{
+        font-size: 2vw;
+    }
+}
+
+/*standard on every file*/
+
 html{
     background-color: #bc48c7;
 } /* test */
@@ -22,5 +39,5 @@ input{
 #heading{
     text-decoration: wavy brown;
     font-size: 2em;
-    
+
 }
