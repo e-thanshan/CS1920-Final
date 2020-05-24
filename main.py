@@ -30,7 +30,7 @@ def render_template(filename, **kwargs):
             Before, throw, save = myFile.partition('{{include')
             save, throw, After = save.partition('}}')
             save = save.strip(" '") 
-            print(save)
+            # print(save)
             try:
                 f = open(save, 'r')
                 include = f.read()
@@ -63,7 +63,7 @@ def getInput(*args): #returns the value of a bunch of key value pair, if not fou
 [path] = getInput('path') 
 
 if path == '': # just main.py -> homepage
-    print(render_template('home.html'))
+    render_template('home.html')
 
 steps = path.split('/')
 for i in steps: #going down the path
