@@ -17,10 +17,35 @@ def render_template(parameter_list, **kwargs):
         print ValueError('filename '+ filename + ' not found in ' + os.getcwd())
         raise ValueError('filename '+ filename + ' not found in ' + os.getcwd())
     for key, value in kwargs.items():
-        if type(i) == type('This is A String'):
-            myFile.replace('{{' + key + '}}', value)
+        if type(key) == type('This is A String'):
+            myFile = myFile.replace('{{' + key + '}}', str(value))
         else:
-            print('This Arg is not acceptable')
-            raise(ValueError('This Arg is not acceptable'))
+            print('404 This route is not acceptable')
+            raise(ValueError('Key value pair for template must be strings'))
     print(myFile)
-    
+
+# app routes
+import cgi
+import cgitb
+cgitb.enable(display=0, logdir='./logdir')
+
+def getInput(*args): #returns the value of a bunch of key value pair, if not found, returns empty string//
+    inputs = []
+    eles = cgi.FieldStorage()
+    for i in args:
+        inputs.append(str(eles.getfirst(i,'')))
+    return inputs
+
+#figuring out the requested path // WIP
+# ~/jjiang20@moe.stuy.edu/main.py?path=gfgwi
+
+path = getInput('path') 
+
+# in progress
+
+
+
+
+
+
+
