@@ -16,11 +16,13 @@
         <ul class="menubar_options">
             <li class="regular"><a id='{{contact_id}}' href="contact">CONTACT US</a></li>
             <li class="regular"><a id='{{about_us_id}}' href="about_us">ABOUT US</a></li>
-            {% if username is defined %}
-            <li><a id='{{log_in_id}}' href="myAccount">MY ACCOUNT</a></li>
-            {% else %}
+
+            <!-- for later -->
+            <!-- {% if username is defined %} -->
+            <!-- <li><a id='{{log_in_id}}' href="myAccount">MY ACCOUNT</a></li> -->
+            <!-- {% else %} -->
             <li><a id='{{log_in_id}}' href="log_in">LOG IN</a></li>
-            {% endif %}
+            <!-- {% endif %} -->
 
         </ul>
 
@@ -35,16 +37,6 @@
 
 </div>
 
-<!-- old nav bar system -->
-<!-- <div class="menuitems">
-  <ul class="menuparts">
-    <a id='{{home_id}}' href="/" ><li class="menuparts, under">HOME</li></a>
-    <a id='{{find_water_id}}' href="find_water"><li class="menuparts under above">FIND WATER</li></a>
-    <a id='{{add_location_id}}' href="add_location"><li class="menuparts under above">ADD LOCATION</li></a>
-    <a id='{{contact_id}}' href="contact"><li class="menuparts under above">CONTACT US</li></a>
-    <a id='{{about_us_id}}' href="about_us"><li class="menuparts above">ABOUT US</li></a>
-    </ul>
-</div> -->
 
 <div id="mySidenav" class="sidenav">
   <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
@@ -53,14 +45,15 @@
   <a id='{{add_location_id}}' href="add_location">ADD LOCATION</a>
   <a id='{{contact_id}}' href="contact">CONTACT US</a>
   <a id='{{about_us_id}}' href="about_us">ABOUT US</a>
-  {% if username is defined %}
+  <!-- for later -->
+  <!-- {% if username is defined %}
   <a id='{{log_in_id}}' href="myAccount">MY ACCOUNT</a>
-  {% else %}
+  {% else %} -->
   <a id='{{log_in_id}}' href="log_in">LOG IN</a>
-  {% endif %}
+  <!-- {% endif %} -->
 </div>
 
 <div id="blackout"></div>
 
 
-<script src="{{ url_for('static', filename='js/hamburgerNav.js') }}"></script>
+<script src="../js/hamburgerNav.js"></script>
