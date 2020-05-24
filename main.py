@@ -1,7 +1,7 @@
 #! /usr/bin/python
 print('Content-type: text/html\n')
 
-print("hello world!")
+# print("hello world!")
 
 import os
 
@@ -25,10 +25,7 @@ def render_template(filename, **kwargs):
             raise(ValueError('Key value pair for templates must be strings'))
 
     #includes for first level embedded templates
-    x= 0
     while True:
-        x += 1
-        print(x)
         if '{{include' in myFile:
             Before, throw, save = myFile.partition('{{include')
             save, throw, After = save.partition('}}')
