@@ -5,7 +5,7 @@ print("hello world!")
 
 import os
 
-def render_template(parameter_list, **kwargs):
+def render_template(filename, **kwargs):
     #given filename in this directory
     print('Where are we: ' + str(os.getcwd())
     os.chdir('templates')
@@ -20,8 +20,8 @@ def render_template(parameter_list, **kwargs):
         if type(key) == type('This is A String'):
             myFile = myFile.replace('{{' + key + '}}', str(value))
         else:
-            print('404 This route is not acceptable')
-            raise(ValueError('Key value pair for template must be strings'))
+            print('404 Known Internal Server Error')
+            raise(ValueError('Key value pair for templates must be strings'))
     print(myFile)
 
 # app routes
@@ -37,11 +37,17 @@ def getInput(*args): #returns the value of a bunch of key value pair, if not fou
     return inputs
 
 #figuring out the requested path // WIP
-# ~/jjiang20@moe.stuy.edu/main.py?path=gfgwi
+# ~/jjiang20@moe.stuy.edu/main.py?path=home/xxx/xxx
 
 path = getInput('path') 
 
-# in progress
+if path == '': # just main.py -> homepage
+    print(render_template('home.html'))
+
+steps = path.split('/')
+for i in steps: #going down the path
+    if i == home
+         
 
 
 
