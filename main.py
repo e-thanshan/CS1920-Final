@@ -79,10 +79,13 @@ data = cgi.FieldStorage()
 if path == '': # just main.py -> homepage
     render_template('home.html')
 
-steps = path.split('/')
-for i in steps: #going down the path
-    if i == 'login':
-        render_template('login.html')
+# steps = path.split('/')
+# for i in steps: #going down the path
+#     if i == 'login':
+#         render_template('login.html')
+# if there is a path
+if 'PATH_INFO' in os.environ.keys():
+   path = os.environ['PATH_INFO']
 
 #get login info
 [whichForm] = getInput(data, 'whichForm')
@@ -103,9 +106,9 @@ if whichForm != '':
         print('theses Credientials don\'t match our records\nplease try again')
 
 
-# testing
-for param in os.environ.keys():
-   print("<b>%20s</b>: %s<\br>" % (param, os.environ[param]))
+# # testing for vals of keys
+# for param in os.environ.keys():
+#    print("<b>%20s</b>: %s<\br>" % (param, os.environ[param]))
 
 
 
