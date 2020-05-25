@@ -90,10 +90,11 @@ if 'PATH_INFO' in os.environ.keys():
    path = str(os.environ['PATH_INFO'])
    #print(path.split('/')[1:])
    pathParts = path.split('/')[1:]
-   if pathParts == []:
-       render_template('home.html')
+   
    if pathParts[0] == 'login':
        render_template('login.html')
+else:
+    render_template('home.html')
 
 
 #get login info
