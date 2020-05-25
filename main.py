@@ -5,7 +5,11 @@ print('Content-type: text/html\n')
 
 import os
 
-def render_template(filename, **kwargs):
+root = ''
+if 'CONTEXT_DOCUMENT_ROOT' in os.environ.keys():
+   root = str(os.environ['CONTEXT_DOCUMENT_ROOT'])
+   
+def render_template(filename, **kwargs): #'root' = root
     #given filename in this directory
     #print('Where are we: ' + str(os.getcwd()))
     os.chdir('templates')
@@ -77,7 +81,7 @@ data = cgi.FieldStorage()
 [path] = getInput(data, 'path') 
 
 if path == '': # just main.py -> homepage
-    render_template('home.html')
+    render_template('home.html', 'root'=root)
 
 # steps = path.split('/')
 # for i in steps: #going down the path
@@ -90,7 +94,7 @@ if 'PATH_INFO' in os.environ.keys():
    print(path.split('/')[1:])
    pathParts = path.split('/')[1:]
    if pathParts[0] == 'login':
-       render_template('login.html')
+       render_template('login.html', 'root'=root)
    print('done')
 
 
