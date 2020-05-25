@@ -51,6 +51,7 @@ import cgitb
 cgitb.enable(display=0, logdir='./logdir')
 
 def GetDB(): #get info from DB / makes the DB + return empty dict
+    import pickle
     os.chdir('/home/students/2022/jjiang20')
     if os.path.exists('IntroFinalDB.p'):
         f = open('IntroFinalDB.p', 'rb')
@@ -58,7 +59,9 @@ def GetDB(): #get info from DB / makes the DB + return empty dict
         f.close()
     else:
         masterDB = {}
-        pickle.dump(masterDB, 'IntroFinalDB.p')
+        f = open('IntroFinalDB.p', 'wb+')
+        pickle.dump(masterDB, f)
+        f.close()
     return masterDB
 
 def getInput(FieldStorage, *args): #returns the value of a bunch of key value pair, if not found, returns empty string//
@@ -87,26 +90,22 @@ if whichForm != '':
     if whichForm == 'Login':
         [username, passward] = getInput(data, 'username', 'pwd')
     elif whichForm == 'NewUsers':
-        
+        pass
     else:
         ValueError('Bad Login/Signup Request')
-    
-
-#check if its in the DB
-masterDB = GetDB()
-if masterDB[username] == passward:
-    #success
-    print('success')
-else:
-    #fail
-    print('theses Credientials don\'t match our records\nplease try again')
+    #check if its in the DB
+    masterDB = GetDB()
+    if masterDB[username] == passward:
+        #success
+        print('success')
+    else:
+        #fail
+        print('theses Credientials don\'t match our records\nplease try again')
 
 
 # testing
-print "Content-type: text/html\r\n\r\n";
-print "<font size=+1>Environment</font><\br>";
 for param in os.environ.keys():
-   print "<b>%20s</b>: %s<\br>" % (param, os.environ[param])
+   print("<b>%20s</b>: %s<\br>" % (param, os.environ[param]))
 
 
 
