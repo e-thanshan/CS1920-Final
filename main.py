@@ -50,17 +50,28 @@ import cgi
 import cgitb
 cgitb.enable(display=0, logdir='./logdir')
 
-def getInput(*args): #returns the value of a bunch of key value pair, if not found, returns empty string//
+def GetDB(): #get info from DB / makes the DB + return empty dict
+    os.chdir('/home/students/2022/jjiang20')
+    if os.path.exists('IntroFinalDB.p'):
+        f = open('IntroFinalDB.p', 'rb')
+        masterDB = pickle.load(f)
+        f.close()
+    else:
+        masterDB = {}
+        pickle.dump(masterDB, 'IntroFinalDB.p')
+    return masterDB
+
+def getInput(FieldStorage, *args): #returns the value of a bunch of key value pair, if not found, returns empty string//
     inputs = []
-    eles = cgi.FieldStorage()
+    eles = FieldStorage
     for i in args:
         inputs.append(str(eles.getfirst(i,'')))
     return inputs
 
 #figuring out the requested path // WIP
 # ~/jjiang20@moe.stuy.edu/main.py?path=login/game
-
-[path] = getInput('path') 
+data = cgi.FieldStorage()
+[path] = getInput(data, 'path') 
 
 if path == '': # just main.py -> homepage
     render_template('home.html')
@@ -68,9 +79,34 @@ if path == '': # just main.py -> homepage
 steps = path.split('/')
 for i in steps: #going down the path
     if i == 'login':
-        pass
-         
+        render_template('login.html')
 
+#get login info
+[whichForm] = getInput(data, 'whichForm')
+if whichForm != '':
+    if whichForm == 'Login':
+        [username, passward] = getInput(data, 'username', 'pwd')
+    elif whichForm == 'NewUsers':
+        
+    else:
+        ValueError('Bad Login/Signup Request')
+    
+
+#check if its in the DB
+masterDB = GetDB()
+if masterDB[username] == passward:
+    #success
+    print('success')
+else:
+    #fail
+    print('theses Credientials don\'t match our records\nplease try again')
+
+
+# testing
+print "Content-type: text/html\r\n\r\n";
+print "<font size=+1>Environment</font><\br>";
+for param in os.environ.keys():
+   print "<b>%20s</b>: %s<\br>" % (param, os.environ[param])
 
 
 

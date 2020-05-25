@@ -20,22 +20,28 @@ html{
 } /* test */
 form{
     margin: 0;
+
 }
 
 #formArea{
     text-align: left;
     width: 11em;
-    height: 10em;
+    min-height: 10em;
     margin: 19em auto;
     padding: 1em;
     font-size: 1em;
     background-color: #f1cbf5;
+    display: flex;
+    flex-direction: column;
 }
 
-input{
+input, label{
     width: 100%;
-}
 
+}
+#responseBox{
+
+}
 #heading{
     text-decoration: wavy brown;
     font-size: 2em;
