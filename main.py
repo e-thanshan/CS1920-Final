@@ -5,14 +5,14 @@ print('Content-type: text/html\n')
 
 import os
 
-root = ''
-if 'CONTEXT_DOCUMENT_ROOT' in os.environ.keys():
-   root = str(os.environ['CONTEXT_DOCUMENT_ROOT'])
-   
-def render_template(filename, **kwargs): #'root' = root
+root = '/home/students/2022/jjiang20/public_html/CS1920-Final/'
+
+#print(os.curdir)
+#print('roots: ' + roots)
+def render_template(filename, **kwargs): #root = root
     #given filename in this directory
     #print('Where are we: ' + str(os.getcwd()))
-    os.chdir('templates')
+    os.chdir(root + '/templates')
     #print('How About Now: ' + str(os.getcwd()))
     try:
         f = open(filename, 'r')
@@ -22,6 +22,7 @@ def render_template(filename, **kwargs): #'root' = root
         print('filename '+ filename + ' not found in ' + os.getcwd())
         raise ValueError('filename '+ filename + ' not found in ' + os.getcwd())
     for key, value in kwargs.items():
+        print(key,value)
         if type(key) == type('This is A String'):
             myFile = myFile.replace('{{' + key + '}}', str(value))
         else:
@@ -81,7 +82,7 @@ data = cgi.FieldStorage()
 [path] = getInput(data, 'path') 
 
 if path == '': # just main.py -> homepage
-    render_template('home.html', 'root'=root)
+    render_template('home.html')
 
 # steps = path.split('/')
 # for i in steps: #going down the path
@@ -89,13 +90,11 @@ if path == '': # just main.py -> homepage
 #         render_template('login.html')
 # if there is a path
 if 'PATH_INFO' in os.environ.keys():
-   print('starting')
    path = str(os.environ['PATH_INFO'])
    print(path.split('/')[1:])
    pathParts = path.split('/')[1:]
    if pathParts[0] == 'login':
-       render_template('login.html', 'root'=root)
-   print('done')
+       render_template('login.html')
 
 
 #get login info
@@ -117,9 +116,9 @@ if whichForm != '':
         print('theses Credientials don\'t match our records\nplease try again')
 
 
-# # testing for vals of keys
-# for param in os.environ.keys():
-#    print("<b>%20s</b>: %s<\br>" % (param, os.environ[param]))
+ # testing for vals of keys
+for param in os.environ.keys():
+    print("<b>%20s</b>: %s<\br>" % (param, os.environ[param]))
 
 
 

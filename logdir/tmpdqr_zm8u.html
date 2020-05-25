@@ -1,0 +1,54 @@
+<body bgcolor="#f0f0f8">
+<table width="100%" cellspacing=0 cellpadding=2 border=0 summary="heading">
+<tr bgcolor="#6622aa">
+<td valign=bottom>&nbsp;<br>
+<font color="#ffffff" face="helvetica, arial">&nbsp;<br><big><big><strong>NameError</strong></big></big></font></td
+><td align=right valign=bottom
+><font color="#ffffff" face="helvetica, arial">Python 3.8.0: /usr/bin/python<br>Mon May 25 18:09:41 2020</font></td></tr></table>
+    
+<p>A problem occurred in a Python script.  Here is the sequence of
+function calls leading up to the error, in the order they occurred.</p>
+<table width="100%" cellspacing=0 cellpadding=0 border=0>
+<tr><td bgcolor="#d8bbff"><big>&nbsp;</big><a href="file:///home/students/2022/jjiang20/public_html/CS1920-Final/main.py">/home/students/2022/jjiang20/public_html/CS1920-Final/main.py</a> in <strong>&lt;module&gt;</strong></td></tr>
+<tr><td><font color="#909090"><tt>&nbsp;&nbsp;<small>&nbsp;&nbsp;&nbsp;86</small>&nbsp;<br>
+</tt></font></td></tr>
+<tr><td><font color="#909090"><tt>&nbsp;&nbsp;<small>&nbsp;&nbsp;&nbsp;87</small>&nbsp;if&nbsp;path&nbsp;==&nbsp;'':&nbsp;#&nbsp;just&nbsp;main.py&nbsp;-&gt;&nbsp;homepage<br>
+</tt></font></td></tr>
+<tr><td bgcolor="#ffccee"><tt>=&gt;<small>&nbsp;&nbsp;&nbsp;88</small>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;render_template('home.html')<br>
+</tt></td></tr>
+<tr><td><font color="#909090"><tt>&nbsp;&nbsp;<small>&nbsp;&nbsp;&nbsp;89</small>&nbsp;<br>
+</tt></font></td></tr>
+<tr><td><font color="#909090"><tt>&nbsp;&nbsp;<small>&nbsp;&nbsp;&nbsp;90</small>&nbsp;#&nbsp;steps&nbsp;=&nbsp;path.split('/')<br>
+</tt></font></td></tr>
+<tr><td><small><font color="#909090"><strong>render_template</strong>&nbsp;= &lt;function render_template&gt;</font></small></td></tr></table>
+<table width="100%" cellspacing=0 cellpadding=0 border=0>
+<tr><td bgcolor="#d8bbff"><big>&nbsp;</big><a href="file:///home/students/2022/jjiang20/public_html/CS1920-Final/main.py">/home/students/2022/jjiang20/public_html/CS1920-Final/main.py</a> in <strong>render_template</strong>(filename='home.html', **kwargs={})</td></tr>
+<tr><td><font color="#909090"><tt>&nbsp;&nbsp;<small>&nbsp;&nbsp;&nbsp;15</small>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#given&nbsp;filename&nbsp;in&nbsp;this&nbsp;directory<br>
+</tt></font></td></tr>
+<tr><td><font color="#909090"><tt>&nbsp;&nbsp;<small>&nbsp;&nbsp;&nbsp;16</small>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#print('Where&nbsp;are&nbsp;we:&nbsp;'&nbsp;+&nbsp;str(os.getcwd()))<br>
+</tt></font></td></tr>
+<tr><td bgcolor="#ffccee"><tt>=&gt;<small>&nbsp;&nbsp;&nbsp;17</small>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;os.chdir(root)<br>
+</tt></td></tr>
+<tr><td><font color="#909090"><tt>&nbsp;&nbsp;<small>&nbsp;&nbsp;&nbsp;18</small>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#print('How&nbsp;About&nbsp;Now:&nbsp;'&nbsp;+&nbsp;str(os.getcwd()))<br>
+</tt></font></td></tr>
+<tr><td><font color="#909090"><tt>&nbsp;&nbsp;<small>&nbsp;&nbsp;&nbsp;19</small>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;try:<br>
+</tt></font></td></tr>
+<tr><td><small><font color="#909090"><em>global</em> <strong>os</strong>&nbsp;= &lt;module 'os' from '/usr/lib/python3.8/os.py'&gt;, os.<strong>chdir</strong>&nbsp;= &lt;built-in function chdir&gt;, root <em>undefined</em></font></small></td></tr></table><p><strong>NameError</strong>: name 'root' is not defined
+<br><tt><small>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</small>&nbsp;</tt>args&nbsp;=
+("name 'root' is not defined",)
+<br><tt><small>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</small>&nbsp;</tt>with_traceback&nbsp;=
+&lt;built-in method with_traceback of NameError object&gt;
+
+
+<!-- The above is a description of an error in a Python program, formatted
+     for a Web browser because the 'cgitb' module was enabled.  In case you
+     are not reading this in a Web browser, here is the original traceback:
+
+Traceback (most recent call last):
+  File "./main.py", line 88, in &lt;module&gt;
+    render_template('home.html')
+  File "./main.py", line 17, in render_template
+    os.chdir(root)
+NameError: name 'root' is not defined
+
+-->
