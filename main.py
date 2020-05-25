@@ -85,7 +85,12 @@ if path == '': # just main.py -> homepage
 #         render_template('login.html')
 # if there is a path
 if 'PATH_INFO' in os.environ.keys():
-   path = os.environ['PATH_INFO']
+   path = str(os.environ['PATH_INFO'])
+   pathParts = path.split('/')[1:]
+   if pathParts[0] == 'login':
+       render_template('login.html')
+
+
 
 #get login info
 [whichForm] = getInput(data, 'whichForm')
