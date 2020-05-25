@@ -85,11 +85,13 @@ if path == '': # just main.py -> homepage
 #         render_template('login.html')
 # if there is a path
 if 'PATH_INFO' in os.environ.keys():
+   print('starting')
    path = str(os.environ['PATH_INFO'])
+   print(path.split('/')[1:])
    pathParts = path.split('/')[1:]
    if pathParts[0] == 'login':
        render_template('login.html')
-
+   print('done')
 
 
 #get login info
