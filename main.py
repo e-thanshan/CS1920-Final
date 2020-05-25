@@ -79,10 +79,7 @@ def getInput(FieldStorage, *args): #returns the value of a bunch of key value pa
 #figuring out the requested path // WIP
 # ~/jjiang20@moe.stuy.edu/main.py?path=login/game
 data = cgi.FieldStorage()
-[path] = getInput(data, 'path') 
 
-if path == '': # just main.py -> homepage
-    render_template('home.html')
 
 # steps = path.split('/')
 # for i in steps: #going down the path
@@ -91,8 +88,10 @@ if path == '': # just main.py -> homepage
 # if there is a path
 if 'PATH_INFO' in os.environ.keys():
    path = str(os.environ['PATH_INFO'])
-   print(path.split('/')[1:])
+   #print(path.split('/')[1:])
    pathParts = path.split('/')[1:]
+   if pathParts == []:
+       render_template('home.html')
    if pathParts[0] == 'login':
        render_template('login.html')
 
