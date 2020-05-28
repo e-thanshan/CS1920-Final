@@ -1,14 +1,24 @@
 #! /usr/bin/python
 print('Content-type: text/html\n')
 
-# print("hello world!")
-
 import os
 
 root = '/home/students/2022/jjiang20/public_html/CS1920-Final/'
 
-#print(os.curdir)
-#print('roots: ' + roots)
+from pymongo import MongoClient
+
+import cgi
+
+import cgitb
+cgitb.enable(display=0, logdir='./logdir')
+
+#db ---------------------------------------
+client = pymongo.MongoClient("mongodb://probeyond:QNRezCY6P31hNCI6@cluster0-shard-00-00-zptan.mongodb.net:27017,cluster0-shard-00-01-zptan.mongodb.net:27017,cluster0-shard-00-02-zptan.mongodb.net:27017/test?ssl=true&replicaSet=Cluster0-shard-0&authSource=admin&retryWrites=true&w=majority")
+db = client['ProductivityApp']
+users = db['Users']
+groups = db['Groups']
+
+#functions -------------------------------
 def render_template(filename, **kwargs): #root = root
     #given filename in this directory
     #print('Where are we: ' + str(os.getcwd()))
@@ -49,36 +59,51 @@ def render_template(filename, **kwargs): #root = root
             
     print(myFile)
 
-# app routes
-import cgi
-
-import cgitb
-cgitb.enable(display=0, logdir='./logdir')
-
-def GetDB(): #get info from DB / makes the DB + return empty dict
-    import pickle
-    os.chdir('/home/students/2022/jjiang20')
-    if os.path.exists('IntroFinalDB.p'):
-        f = open('IntroFinalDB.p', 'rb')
-        masterDB = pickle.load(f)
-        f.close()
-    else:
-        masterDB = {}
-        f = open('IntroFinalDB.p', 'wb+')
-        pickle.dump(masterDB, f)
-        f.close()
-    return masterDB
-
 def getInput(FieldStorage, *args): #returns the value of a bunch of key value pair, if not found, returns empty string//
     inputs = []
     eles = FieldStorage
     for i in args:
         inputs.append(str(eles.getfirst(i,'')))
     return inputs
-
-#figuring out the requested path // WIP
-# ~/jjiang20@moe.stuy.edu/main.py?path=login/game
 data = cgi.FieldStorage()
+# app routes --------------------------------------------------------------------------------
+
+
+#original DB
+# import pickle
+
+# def GetDB(): #get info from DB / makes the DB + return empty dict
+#     #{username: {email: blahblah, pwd: blahblah}}
+
+#     os.chdir('/home/students/2022/jjiang20')
+#     if os.path.exists('IntroFinalDB.p'):
+#         f = open('IntroFinalDB.p', 'rb')
+#         masterDB = pickle.load(f)
+#         f.close()
+#     else:
+#         masterDB = {}
+#         f = open('IntroFinalDB.p', 'wb+')
+#         pickle.dump(masterDB, f)
+#         f.close()
+#     return masterDB
+#idk if its needed
+# def GetEmails(): #get list of emails that are linked with accounts
+#     os.chdir('/home/students/2022/jjiang20')
+#     if os.path.exists('IntroFinalEmailDB.p'):
+#         f = open('IntroFinalDB.p', 'rb')
+#         emailDB = pickle.load(f)
+#         f.close()
+#     else:
+#         emailDB = []
+#         f = open('IntroFinalEmailDB.p', 'wb+')
+#         pickle.dump(emailDB, f)
+#         f.close()
+#     return emailDB
+
+
+#figuring out the requested path 
+# ~/jjiang20@moe.stuy.edu/main.py?path=login/game
+
 
 
 # steps = path.split('/')
@@ -97,24 +122,44 @@ else:
     render_template('home.html')
 
 
-#get login info
+#get login info --------------- // change to match mangodb
 [whichForm] = getInput(data, 'whichForm')
 if whichForm != '':
     if whichForm == 'Login':
         [username, passward] = getInput(data, 'username', 'pwd')
-    elif whichForm == 'NewUsers':
-        pass
-    else:
-        ValueError('Bad Login/Signup Request')
-    #check if its in the DB
-    masterDB = GetDB()
-    if masterDB[username] == passward:
-        #success
-        print('success')
-    else:
-        #fail
-        print('theses Credientials don\'t match our records\nplease try again')
+         #check if its in the DB
+        if (users.count_documents({'username':username, 'password': password}) > 0):
+            #success
+            print('success')
+        else:
+            #fail
+            print('theses Credientials don\'t match our records\nplease try again')
 
+    elif whichForm == 'NewUsers':
+        [email, username, passward, cpassward] = getInput(data, 'email', 'username', 'pwd', 'cpwd')
+        if passward != cpassward:
+            print('Bad Login/Signup Request, passwards don\'t match')
+            ValueError('Passwards dont match, wasn\'t stopped by JS')
+        else:
+            if not (users.count_documents({'username':username}) > 0): #is username taken
+                if not (users.count_documents({'email':email}) > 0): #is email taken
+                    users.insert_one({
+                        'username':username,
+                        'password':password,
+                        'email':email,
+                        'groups':[]
+                        })
+                    print('success')
+                else:
+                    #fail
+                    print('this email has been taken\nplease try again')
+            else:
+                #fail
+                print('this username has been taken\nplease try again')
+    else:
+        print('Bad Login/Signup Request')
+        ValueError('Bad Login/Signup Request')
+   
 
  # testing for vals of keys
 for param in os.environ.keys():
